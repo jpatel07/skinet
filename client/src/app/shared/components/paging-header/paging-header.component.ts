@@ -15,8 +15,6 @@ export class PagingHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('This is the values ' + this.pageNumber + ' '
-      + this.pageSize + ' ' + this.totalCount);
   }
 
 }
