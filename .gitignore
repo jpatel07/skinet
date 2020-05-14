@@ -3,3 +3,5 @@ bin
 appsettings.json
 *.db
 *.DS_Store
+*.db-wal
+*.db-shm
