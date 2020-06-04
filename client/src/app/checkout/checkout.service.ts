@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { IDeliveryMethod } from '../shared/models/deliveryMethod';
 import { map } from 'rxjs/operators';
-import { IOrderToCreate } from '../shared/models/order';
+import { IOrderToCreate, IOrder } from '../shared/models/order';
 
 @Injectable({
   providedIn: 'root'
@@ -24,4 +24,14 @@ export class CheckoutService {
       })
     );
   }
+
+  getUserOrders() {
+    return this.http.get(this.baseUrl + 'orders').pipe(
+      map((orders: IOrder[]) => {
+        console.log('Orders count ' + orders.length);
+        return orders;
+      })
+    );
+  }
+
 }

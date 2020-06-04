@@ -1,4 +1,5 @@
 import { IAddress } from './address';
+import { OrderTotalsComponent } from '../components/order-totals/order-totals.component';
 
 export interface IOrderToCreate {
     basketId: string;
@@ -25,4 +26,6 @@ export interface IOrderItem {
     price: number;
     quantity: number;
 }
+
+
 
