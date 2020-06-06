@@ -17,6 +17,9 @@
                         <th scope=col class="boarder-0" >
                             <div class="py-2 text-uppercase">Status</div>
                         </th>
+                        <th scope=col class="boarder-0" >
+                            <div class="py-2 text-uppercase">ViewOrder</div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +28,7 @@
                         <td class="align-middle"> <strong>{{placedOrder.orderDate | date}}</strong></td>
                         <td class="align-middle"> <strong>{{placedOrder.total | currency}}</strong></td>
                         <td class="align-middle"> <strong>{{placedOrder.status}}</strong></td>
+                        <button routerLink="/orders/{{placedOrder.id}}" type="button" class="btn btn-primary">View</button>
                     </tr>
 
                 </tbody>

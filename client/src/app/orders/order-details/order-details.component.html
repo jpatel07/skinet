@@ -1,0 +1,27 @@
+<div>
+    <label>OrderId:</label>
+    <label>{{placedOrder.id}}</label>
+</div>
+<div>
+    <label>orderDate</label>
+    <label>{{placedOrder.orderDate | date}}</label>
+</div>
+
+<div>
+    <label> deliveryMethod:</label>
+    <label>{{placedOrder.deliveryMethod}}</label>
+</div>
+
+<div>
+    <label>Shipping Cost:</label>
+    <label>{{placedOrder.shippingPrice}}</label>
+</div>
+
+<div>
+    <label>SubTotal:</label>
+    <label>{{placedOrder.subTotal | currency}}</label>
+</div>
+<div>
+    <label>Total:</label>
+    <label>{{placedOrder.total |  currency}}</label>
+</div>

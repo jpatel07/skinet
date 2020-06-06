@@ -34,4 +34,12 @@ export class CheckoutService {
     );
   }
 
+  getUserOrder(id: number) {
+    console.log('input id is ' + id);
+    return this.http.get(this.baseUrl + 'orders/' + id).pipe(
+      map((order: IOrder) => {
+        return order;
+      })
+    );
+  }
 }
