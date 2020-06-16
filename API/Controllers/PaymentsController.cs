@@ -34,8 +34,6 @@ namespace API.Controllers
         [HttpPost("webhook")]
         public async Task<ActionResult> StripeWebHook()
         {
-             _logger.LogInformation("-------------StripeWebHook-------------");
-             _logger.LogInformation("--------------StripeWebHook------------");
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
 
             var stripEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"],
@@ -43,7 +41,7 @@ namespace API.Controllers
 
             PaymentIntent intent;
             Order order;
-              _logger.LogInformation("--------------StripeWebHook------------ ", stripEvent.Type);
+
             switch (stripEvent.Type)
             {
                 case "payment_intent.succeeded":
@@ -51,11 +49,6 @@ namespace API.Controllers
                     _logger.LogInformation("Payment Succedded: ", intent.Id);
                     order = await _paymentService.UpdateOrderPaymentSucceeded(intent.Id);
                     _logger.LogInformation("Order Updated to Payment Received: ", order.Id);
-                    _logger.LogInformation("--------------------------");
-                    _logger.LogInformation("--------------------------");
-                    _logger.LogInformation("--------------------------");
-                    _logger.LogInformation("--------------------------");
-
                     break;
                 case "payment_intent.payment_failed":
                     intent = (PaymentIntent)stripEvent.Data.Object;
@@ -63,13 +56,6 @@ namespace API.Controllers
                     order = await _paymentService.UpdateOrderPaymentFailed(intent.Id);
                     _logger.LogInformation("Order Updated to Payment Failed: ", order.Id);
                     _logger.LogError("Order Updated to Payment Failed: ", order.Id);
-                    _logger.LogInformation("--------------------------");
-                    _logger.LogInformation("--------------------------");
-                    _logger.LogInformation("--------------------------");
-                    _logger.LogInformation("--------------------------");
-                    _logger.LogInformation("--------------------------");
-                    _logger.LogInformation("--------------------------");
-                    _logger.LogInformation("--------------------------");
                     break;
             }
 
