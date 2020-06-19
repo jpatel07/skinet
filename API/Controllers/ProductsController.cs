@@ -37,7 +37,7 @@ namespace API.Controllers
 
         
         [HttpGet]
-       // [Cached(600)]
+        [Cached(600)]
         public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts(
             [FromQuery] ProductSpecParams productParams)
         {
