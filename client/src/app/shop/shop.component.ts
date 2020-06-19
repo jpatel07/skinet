@@ -12,7 +12,7 @@ import { ShopParams } from '../shared/models/shopParams';
   styleUrls: ['./shop.component.scss']
 })
 export class ShopComponent implements OnInit {
-  @ViewChild('search', {static: false}) searchTerm: ElementRef;
+  @ViewChild('search', { static: false }) searchTerm: ElementRef;
   products: IProduct[];
   brands: IBrand[];
   types: IType[];
@@ -39,6 +39,7 @@ export class ShopComponent implements OnInit {
       this.shopParams.pageNumber = response.pageIndex;
       this.shopParams.pageSize = response.pageSize;
       this.totalCount = response.count;
+      console.log(response.data);
     }, error => {
       console.log(error);
     });
@@ -78,7 +79,7 @@ export class ShopComponent implements OnInit {
   }
 
   onPageChanged(event: any) {
-    if(this.shopParams.pageNumber !== event) {
+    if (this.shopParams.pageNumber !== event) {
       this.shopParams.pageNumber = event;
       this.getProducts();
 

@@ -39,7 +39,12 @@ export class ShopService {
     return this.http.get<IPagination>(this.baseUrl + 'products', { observe: 'response', params })
       .pipe(
         map(response => {
+          console.log('Params ' + params);
+          console.log('Response response --> ' + response);
+          console.log('Response response body --> ' + response.body);
+          console.log('Response response body data--> ' + response.body?.data?.toString());
           return response.body;
+
         })
       );
   }
