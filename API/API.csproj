@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2"/>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\**" CopyToPublishDirectory="PreserveNewest"/>
     <ProjectReference Include="..\Infastructure\Infastructure.csproj"/>
   </ItemGroup>
 </Project>

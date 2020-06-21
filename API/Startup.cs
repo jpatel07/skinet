@@ -1,3 +1,4 @@
+using System.IO;
 using API.Extensions;
 using API.Helpers;
 using API.Middleware;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using StackExchange.Redis;
 
 namespace API
@@ -21,12 +23,8 @@ namespace API
             _config = config;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureDevelopmentServices(IServiceCollection services)
         {
-
-            services.AddAutoMapper(typeof(MappingProfiles));
-            services.AddControllers();
             services.AddDbContext<StoreContext>(x =>
                 x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
             
@@ -34,6 +32,29 @@ namespace API
             {
                 x.UseSqlite(_config.GetConnectionString("IdentityConnection"));
             });
+
+            ConfigureServices(services);
+        }       
+        public void ConfigureProductionServices(IServiceCollection services)
+        {
+            services.AddDbContext<StoreContext>(x =>
+                x.UseMySql(_config.GetConnectionString("DefaultConnection")));
+            
+            services.AddDbContext<AppIdentityDbContext>( x =>
+            {
+                x.UseMySql(_config.GetConnectionString("IdentityConnection"));
+            });
+
+            ConfigureServices(services);
+        }
+
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+
+            services.AddAutoMapper(typeof(MappingProfiles));
+            services.AddControllers();
+
 
             services.AddSingleton<IConnectionMultiplexer>(c => {
                 var configuration = ConfigurationOptions.Parse(_config
@@ -68,6 +89,13 @@ namespace API
 
             app.UseStaticFiles();
 
+            app.UseStaticFiles(new StaticFileOptions 
+            {
+                FileProvider = new PhysicalFileProvider (
+                    Path.Combine(Directory.GetCurrentDirectory(), "Content")
+                ), RequestPath = "/content"
+            });
+
             app.UseCors("CorsPolicy");//before Authorization
 
             app.UseAuthentication();
@@ -79,6 +107,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index","Fallback");
             });
         }
     }

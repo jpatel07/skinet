@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Core.Entities;
@@ -16,10 +17,11 @@ namespace Infastructure.Data
         {
             try
             {
+                var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 if (!context.ProductBrands.Any())
                 {
                     var brandData =
-                        File.ReadAllText("../Infastructure/Data/SeedData/brands.json");
+                        File.ReadAllText(path + @"/Data/SeedData/brands.json");
                     var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandData);
                     foreach (var item in brands)
                     {
@@ -32,11 +34,11 @@ namespace Infastructure.Data
                 if (!context.DeliveryMethods.Any())
                 {
                     var dmData =
-                        File.ReadAllText("../Infastructure/Data/SeedData/delivery.json");
+                          File.ReadAllText(path + @"/Data/SeedData/delivery.json");
                     var methods = JsonSerializer.Deserialize<List<DeliveryMethod>>(dmData);
                     foreach (var method in methods)
                     {
-                       context.DeliveryMethods.Add(method);
+                        context.DeliveryMethods.Add(method);
                     }
 
                     await context.SaveChangesAsync();
@@ -46,7 +48,7 @@ namespace Infastructure.Data
                 if (!context.ProductTypes.Any())
                 {
                     var brandType =
-                        File.ReadAllText("../Infastructure/Data/SeedData/types.json");
+                         File.ReadAllText(path + @"/Data/SeedData/types.json");
                     var types = JsonSerializer.Deserialize<List<ProductType>>(brandType);
                     foreach (var item in types)
                     {
@@ -59,7 +61,7 @@ namespace Infastructure.Data
                 if (!context.Products.Any())
                 {
                     var productTypes =
-                        File.ReadAllText("../Infastructure/Data/SeedData/products.json");
+                         File.ReadAllText(path + @"/Data/SeedData/products.json");
                     var products = JsonSerializer.Deserialize<List<Product>>(productTypes);
 
                     foreach (var product in products)

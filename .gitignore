@@ -5,3 +5,5 @@ appsettings.json
 *.DS_Store
 *.db-wal
 *.db-shm
+publish
+wwwroot
