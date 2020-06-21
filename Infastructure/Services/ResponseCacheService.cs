@@ -26,7 +26,7 @@ namespace Infastructure.Services
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
 
-            var serialisedResponse = JsonSerializer.Serialize(response);
+            var serialisedResponse = JsonSerializer.Serialize(response, options);
             await _database.StringSetAsync(cachekey, serialisedResponse);
 
         }
@@ -34,7 +34,7 @@ namespace Infastructure.Services
         public async Task<string> GetCacheResponseAsync(string cacheKey)
         {
             var cachedResponse = await _database.StringGetAsync(cacheKey);
-            if(cachedResponse.IsNullOrEmpty)
+            if (cachedResponse.IsNullOrEmpty)
             {
                 return null;
             }

@@ -26,7 +26,9 @@ namespace API.Helpers
             context.HttpContext.RequestServices.GetRequiredService<IResponseCacheService>();
 
             var cacheKey = GenerateCacheKeyFromRequest(context.HttpContext.Request);
+
             var cachedResponse = await cacheService.GetCacheResponseAsync(cacheKey);
+
 
             if (!string.IsNullOrWhiteSpace(cachedResponse))
             {
@@ -34,7 +36,7 @@ namespace API.Helpers
                 {
                     Content = cachedResponse,
                     ContentType = "application/json",
-                    StatusCode = 200
+                    StatusCode = 200,
                 };
                 context.Result = contentResult;
 
