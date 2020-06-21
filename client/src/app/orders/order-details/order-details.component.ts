@@ -23,7 +23,6 @@ export class OrderDetailsComponent implements OnInit {
   loadOrder() {
 
     this.checkoutService.getUserOrder(+this.activateRoute.snapshot.paramMap.get('id')).subscribe(order => {
-      console.log('Order id is ' + order.id);
       this.placedOrder = order;
     });
   }

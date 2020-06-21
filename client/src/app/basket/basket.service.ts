@@ -25,7 +25,6 @@ export class BasketService {
       .pipe(
         map((basket: IBasket) => {
           this.basketSource.next(basket);
-          console.log(this.getCurrentBasketValue());
         })
       );
   }
@@ -67,7 +66,6 @@ export class BasketService {
   addItemToBasket(item: IProduct, quantity = 1) {
     const itemToAdd: IBasketItem = this.mapProductItemToBasketITem(item, quantity);
     const basket = this.getCurrentBasketValue() ?? this.createBasket();
-    console.log(basket);
     basket.items = this.addOrUpdateItems(basket.items, itemToAdd, quantity);
     this.setBasket(basket); // push back on redish
 

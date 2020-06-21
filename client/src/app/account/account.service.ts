@@ -39,7 +39,6 @@ export class AccountService {
     return this.http.post(this.baseUrl + 'account/login', values).pipe(
       map((user: IUser) => {
         if (user) {
-          console.log('Setting token ' + user.token);
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
         }
@@ -60,7 +59,6 @@ export class AccountService {
   }
 
   logout() {
-    console.log('logging out');
     localStorage.removeItem('token');
     this.currentUserSource.next(null);
     this.router.navigateByUrl('/');
